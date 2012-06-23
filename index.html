@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<title>Music player</title>
+	<link type="text/css" href="/css/ui-lightness/jquery-ui-1.8.11.custom.css" rel="stylesheet" />	
+	<link type="text/css" href="/css/player.css" rel="stylesheet" />	
+	<script type="text/javascript" src="/js/jquery/jquery-1.5.1.min.js"></script>
+	<script type="text/javascript" src="/js/jquery/jquery-ui-1.8.11.custom.min.js"></script>
+	<script type="text/javascript" src="operate.js"></script>
+</head>
+<body>
+    <table id="#controls">
+        <tr>
+            <td><div class="button controlbutton" id="stop">[]</div></td>
+            <td><div class="button controlbutton" id="pause">||&gt;</div></td>
+            <td rowspan="2">
+                <div id="NowPlaying">
+                    <div class="title"></div>
+                    <div class="artist"></div>
+                    <div class="album"></div>
+                    <div class="filename"></div>
+                    <div id="progressbar"></div>
+                </div>
+            </td>
+            <td rowspan="2" id="coverthumbnailholder">
+            </td>
+        </tr>
+        <tr>
+            <td><div class="button skip" id="skipback">&lt;&lt;</div></td>
+            <td><div class="button skip" id="skipforward">&gt;&gt;</div></td>
+        </tr>
+    </table>
+    <hr/>
+    <div id="directories">
+        <div id="toplink" class="button">TOP</div>
+        <div id="up" class="button"></div>
+        <div id="dirname"></div>
+        <div id="subdirs"></div>
+    </div>
+    <div id="files"></div>
+<div class="clear"></div>
+<div id="debuglog"></div>
+</body>
+</html>
+
+

@@ -1,0 +1,223 @@
+
+
+use the python mplayer wrapper?
+---
+port to mod_python, and/or make cgi wrappers of same
+---
+make it store state on server (and not all on client)
+---
+make it play radio URLs
+---
+give it an auto-off or "sleep" type option (so you can kill the fucking radio)
+---
+bring the playlist to server side (and not managed by mplayer) so you can
+see it and control it.
+
+
+------------------
+
+BACK ALL THIS UP
+include the notes in ~ and/or ~music saying how to set it up
+
+------------------
+
+fix the current playback state.  it still doesn't know 
+that time has passed since the song played, and will show
+the song state at the time it was minimized.
+
+------------------
+
+Use a cookie or the like so that when iOS insists on reloading the whole
+fucking page, go back to the same listing directory.
+
+------------------
+
+use a html5 <audio> or whatever the fuck it is tag, so you can
+play the whole song (or a sample) via the controller
+
+------------------
+
+rather than list everything, if there are more than N listings,
+have some kind of directory that lists the first letters and then
+lets you expand/zoom
+
+------------------
+
+It might be good to keep current song info in the page state
+(ie., not just stuff for display),
+including in particular when the song is expected to end, in
+milliseconds since epoch.  Then after a delay the page could check
+its state better.
+
+------------------
+
+It might be good to move a lot more of the mplayer state to the
+CGI side.  (this is mentioned below in terms of doing this for the
+queue management).  but it's also good for keeping track of things
+like which song is currently playing.
+
+------------------
+
+I've really got to fix the look-and-feel.  Look to Dropbox for visual
+inspriation.
+------------------
+
+Add time delayed play.  Is there a jquery clock widget?
+(turns out: not really. there are some but they seem pointless)
+
+------------------
+
+Make it detect a video in the music dir, and if one is present,
+use <video> tags to make them displayable in the player.
+
+------------------
+
+Can I add some kind of open-source radio station?
+that way i can point itunes to it and play off my local machine w/headphones
+and use this single interface for everything
+(and not have to do what i was planning -- point itunes at the shared drive,
+which i might have to do anyway to put it on the ipad, but anyway)
+
+look for "liquidsoap" and "icecast" packages for ubuntu?
+
+------------------
+
+Make it use fade in/out to avoid the harsher transitions.
+during start and stop
+
+------------------
+
+When going "up", make it scroll to the directory you were just in.
+Note that there are jquery .scroll method(s), and CSS has a thing,
+I think "overflow: auto" or the like, that causes divs that are too
+big to become scrollers (although the scrollbar might look like shit but
+worry about that later).
+
+--------------------------------------
+
+Do somethign with the playing status (incl. progressbar) when
+nothing's playing.  It's ugly now.
+
+ ------------------
+
+The now playing section needs to refresh better.
+If it gets out of sync, it can get stuck.
+If you come back to it after having turned off browser for a while,
+it displays old info.
+
+ ------------------
+
+Add graphics for controls (stop,play,forward, reverse,up, top)
+
+--------------------------------------
+
+If there's an ampersand in a name, it can't list it
+lister.cgi has no problem; i think it's because operate.js
+tries to use the dir name as HTML content and the ampersand is
+treated as starting an entity ref, fails, dies.
+Working around it now just by renaming
+
+------------------
+
+When you queue something, add some kind of status message.
+It can be hard to tell that you've pressed the button.
+
+------------------
+
+add volume
+playback speed?
+balance?
+scrub bar? (replace progress bar w/slider?)
+
+might change logic behind progress bar or slider: rather than figure
+out percentage change per second, just make max value == # seconds,
+and then increment by 1 each second.  Let jQuery do the work.
+
+This might be useful (slave docs):
+seek <value> [type]
+    Seek to some place in the movie.
+        0 is a relative seek of +/- <value> seconds (default).
+        1 is a seek to <value> % in the movie.
+        2 is a seek to an absolute position of <value> seconds.
+
+"go back 30 seconds" aka replay
+
+------------------
+
+Rather than having a CGI whose job is just to puke out the cover.jpg,
+make the JS create a URL to the NAS server?
+
+------------------
+
+Make it deal with podcasts.  Maybe configure lister to have a list
+of "known" subdirectories off of /nas/media.
+The easy way to do this is just move "Podcasts" under "Music".
+
+Or do some combination, perhaps creating "Audio" and moving both podcasts
+and music under it, and adjusting scripts to match.
+
+... although it's possible that DLNA or some such shit requires a
+naming convention where "Music" is on top.  It occurs to me now that
+the PS3 will only present content in the right place if a disk follows
+that convention.  It seems to be the same between NAS and PS3.
+
+------------------
+
+Listing.cgi and cover.cgi deal with general paths and figure out the
+top-level dirnames.
+Make control.cgi do the same?
+
+------------------
+
+Rather than use mplayer's metadata (by reading from the console, which is kind
+of ugly anyway) maybe have lister.cgi grab the metadata? but where would it
+store it?  (some kind of local fs cache, i guess, or in memory if we switch
+to node or mod_python).  This way, we can have more control over it, especially
+for .ogg files in which i've added a lot more data.  It would be cool to
+have a popup with full performer data or something.  Note that mplayer
+seems to be unable to read OGG title metadata...?
+
+Also it could display metadata in the listings file this way
+which might be more useful for podcasts than regular songs.
+(In this case (displaying in listings) having lister do it makes sense.
+
+Rather than have lister do it, maybe make another CGI whose only job
+is reading metadata.  Maybe this would only be used for NowPlaying.
+
+------------------
+
+Manage/display the song queue.
+Would probably have to switch to stateful server here
+(mod-python, or node?)
+Or... just use another FIFO?  the player can read one line
+at a time as needed?...
+no, that wouldn't work.  well, it would work to maintain the queue,
+but not in such a way that the queue could be displayed without being
+destroyed.
+Although...it might be fine just to have a file holding the data and have
+the server etc modify it.
+
+------------------
+
+Similar to above -- make it recall last played position on a song,
+in particular useful for podcasts.
+
+
+===========  DONE: ===========================
+
+------------------
+
+Add next/last to controls.  Mplayer slave mode docs:
+
+pt_step <value> [force]
+    Go to the next/previous entry in the playtree. The sign of <value> tells
+    the direction.  If no entry is available in the given direction it will do
+    nothing unless [force] is non-zero.
+
+------------------
+
+Have something (file listing?) indicate whether there's an album
+cover.  If there is, display it, perhaps conditionally only if there
+are no subdirs (which will be likely).  Maybe also use it for thumbnails
+when listing album in the parent directory.
+

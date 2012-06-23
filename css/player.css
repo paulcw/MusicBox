@@ -1,0 +1,138 @@
+
+body { background: #ccbfaa; }
+div.clear { clear: both; }
+
+/* common rules for buttons (with default colors TODO move to own class */
+.button {
+    padding: 3px;
+    margin: 3px;
+    border: 1px solid black;
+    background: #ffcccc;
+    border-radius: 5px;
+    -moz-box-shadow: 3px 3px 3px #666;
+    -webkit-box-shadow: 3px 3px 3px #666;
+    box-shadow: 3px 3px 3px #666;
+}
+/* turn off the shadow when it's being clicked */
+.button:active {
+    -moz-box-shadow: 0px 0px 0px #666;
+    -webkit-box-shadow: 0px 0px 0px #666;
+    box-shadow: 0px 0px 0px 0666;
+}
+
+
+table#controls {
+    float: left;
+}
+
+div.controlbutton {
+    height: 35px;
+    width: 35px;
+    font-size: xx-large;
+    /*float: left;*/
+    background: #ccccff;
+    color: #000033;
+    border: 3px solid black;
+    margin: 5px;
+    padding: 15px;
+}
+div.skip {
+    width: 35px;
+    height: 10px;
+    background: #ccccff;
+    color: #000033;
+    /*float: left;*/
+    margin: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 1px;
+    padding-bottom: 7px;
+}
+
+div#NowPlaying {
+    float: left;
+    margin: 5px;
+    border: 1px dotted blue;
+    width: 600px;
+    height: 100px;
+    padding: 5px;
+}
+.ui-progressbar {
+    height: 10px;
+    background: #664022;
+    border: 1px solid green;
+}
+div#NowPlaying .artist,.album,.filename {
+    font-size: small;
+}
+
+#coverthumbnail {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+}
+
+#directories {
+    float: left;
+    width: 45%;
+}
+#directories #toplink {
+    float: left;
+    padding: 5px;
+    background: #aaffcc;
+}
+#directories #up {
+    float: left;
+    padding: 5px;
+    background: #aaffcc;
+}
+#directories #dirname:before { content: "Directory:"; }
+#directories #dirname {
+    font-size: large;
+    margin: 10px;
+    float: left;
+}
+#directories #subdirs {
+    padding : 20px;
+    clear: both;
+}
+#directories #subdirs .subdir {
+    margin-top: 5px;
+    background: #aaffcc;
+}
+#directories #subdirs #coverart {
+    width: 300px;
+    height: 300px;
+    -moz-box-shadow: 3px 3px 3px #666;
+    -webkit-box-shadow: 3px 3px 3px #666;
+    box-shadow: 3px 3px 3px #666;
+}
+
+#files {
+    float: left;
+    width: 45%;
+}
+#files .dirsongs { margin-bottom: 30px; }
+#files .dirsongs .button {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+/*#files .dirsongs .playall {
+    margin-bottom: 10px;
+}
+#files .dirsongs .queueall {
+    margin-bottom: 10px;
+}*/
+#files .song {
+    margin-top: 5px;
+}
+#files .song .playfile { float: left; }
+#files .song .queuefile { float: left; }
+#files .song .listingfilename {
+    float: left;
+    padding: 3px;
+    padding-left: 7px;
+    width: 250px;
+    margin: auto;
+}
+
