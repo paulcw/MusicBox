@@ -15,7 +15,8 @@ as "annotations" in Quicktime, dunno if that's just how QT expresses
 ID3 or if there's some goddamned nonstandard thing that Apple is doing
 in its ongoing efforts to become Microsoft circa 1995.
 Might need to find a better CD ripper than iTunes...
-on the other hand, maybe mplayer just sucks. Life is mysterious.
+on the other hand, maybe mplayer just sucks. (maybe itunes does id3v2, and
+mplayer can only read v1?)  Life is mysterious.
 ---
 port to some other python/web framework, as lightweight as possible,
 that preserves state.  Too many other todo items want that.
