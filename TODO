@@ -1,5 +1,11 @@
-
-
+make the client side code (operate.js) report error messages.
+server side components return errors with json obj with a key "error"
+and the val being the message.
+-----
+break operate.js into different files based on area of functionaliy
+-----
+it might make sense to use something like meteor to build this, or parts of it
+------
 use the python mplayer wrapper?
 hopefully, this will significantly reduce code surface
 ---
@@ -123,6 +129,14 @@ it displays old info.
 Add graphics for controls (stop,play,forward, reverse,up, top)
 
 --------------------------------------
+
+Before, if there's a semicolon in a name, lister.cgi wouldn't list it.
+That's because cgi.py uses it to split values,
+so it basically truncates at the semicolon, mistakenly adding
+the semicolon to the next value (which doesn't really exist).
+We were using out-of-the-box javascript encodeURI, which doesn't seem
+to encode semicolons.  So I put in a hack to wrap encodeURI such that
+semicolons are quoted.  Maybe look for a better solution...
 
 If there's an ampersand in a name, it can't list it
 lister.cgi has no problem; i think it's because operate.js

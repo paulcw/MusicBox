@@ -1,4 +1,10 @@
 
+oldEncodeURI = encodeURI
+encodeURI = function(x) {
+    var newx = oldEncodeURI(x);
+    return newx.replace(";", "%3b");
+};
+
 // TODO refactor all the stuff about the progressbar
 var playing = false;
 //var starttime;
