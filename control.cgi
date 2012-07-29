@@ -220,9 +220,11 @@ elif do == 'nowplaying':
     # It makes more sense to put this in web page and cover.cgi.
     # Well, maybe.  Can we just let a 404 denote lack of presense?
     # Would that suck?
-    directory = data['path'][0:-len(data['filename'])]
-    if os.path.exists(directory + 'cover.jpg'):
-        data['cover'] = directory[len(ROOT):]
+    if data.has_key('filename'):
+        # there wouldn't be a filename, or a lot of stuff, if nothing is playing
+        directory = data['path'][0:-len(data['filename'])]
+        if os.path.exists(directory + 'cover.jpg'):
+            data['cover'] = directory[len(ROOT):]
 
     print json.dumps(data)
 
