@@ -54,11 +54,15 @@ the environment.  Also the UI is ugly.
 Other things that might serve the same purpose
 ----------------------------------------------
 
+The Google Nexus Q (that sphere) looks like it might do exactly this, including the hardware.
+This is such an obvious use case that I'm surprised that no electronics
+manufacturers (that I could find, anyway) have made such a thing already.
+
 There's a thing called "mpd" which apparently does largely the same thing.
 mpd is the server and you can use various clients.  It has a web client.
 But I couldn't get it to work, and after fiddling with it, it wasn't clear
-whether it really did the same thing or not.  You might prefer to work with
-that, than this.
+whether it really did what I wanted.  You might prefer to work with
+that.
 
 A DLNA Player and a DLNA Controller, together, should do the same thing,
 especially if the player is connected to audio output instead of or in addition
