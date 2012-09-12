@@ -18,6 +18,24 @@ import json
 
 ROOT='/nas/media/Music'
 MUSICDIRS = ['mp3', 'ogg', 'wma', 'flac', 'm4a']
+STOPWORDS = ['the ', 'a '] # note hack: trailing space
+
+def case_insensitive_sort_ignoring_stopwords(a, b):
+    lca = a.lower()
+    lcb = b.lower()
+    for word in STOPWORDS:
+        if lca.startswith(word):
+            lca = lca[len(word):]
+            break # not sure this makes sense -- stop at first stopword
+                  # so, "The The A Dog" is thought of as properly "The A Dog"
+        if lcb.startswith(word):
+            lcb = lcb[len(word):]
+            break
+    if lca == lcb:
+        return 0
+    if lca < lcb:
+        return -1
+    return 1
 
 print "Content-type: application/json\r\n\r\n"
 sys.stdout.flush() # for better debugging, when there's an error
@@ -67,7 +85,7 @@ dirs = {}
 
 for apath in paths:
     entries = filter(lambda x: not x.startswith('.'), os.listdir(apath['path']))
-    entries.sort()
+    entries.sort(case_insensitive_sort_ignoring_stopwords)
 
     for d in entries:
         #print "<li>raw: %s</li>" % d
@@ -90,7 +108,7 @@ for apath in paths:
 
 data['types'] = types.keys()        
 data['subdirs'] = dirs.keys()
-data['subdirs'].sort()
+data['subdirs'].sort(case_insensitive_sort_ignoring_stopwords)
 
 print json.dumps(data)
 
