@@ -144,6 +144,7 @@ If there's an ampersand in a name, it can't list it
 lister.cgi has no problem; i think it's because operate.js
 tries to use the dir name as HTML content and the ampersand is
 treated as starting an entity ref, fails, dies.
+same with plus sign, because presumably it's used in url encoding as well.
 Working around it now just by renaming
 
 ------------------

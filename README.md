@@ -29,10 +29,14 @@ without being connected to a TV.
 
 Also, I like arranging my music in a particular way: top-level directories
 are based on the format of music (e.g., MP3 vs Ogg Vorbis), and then
-subdirectories under each, usually based on artist.  This way, it's easy
+subdirectories under each, usually based on artist.  (This way, it's easy
 to make subsections of your music collection available to devices based on what
 they can handle; if you have a player that only knows about MP3s, then copy just
-that directory to that device.
+that directory to that device.)  And a lot of music players I've seen do dumb
+things with albums -- e.g., you'll search for an album by band name, and if
+the album has multiple artist combinations, it'll only list part of the album.
+Or if you've ripped an album twice, in MP3 and Ogg Vorbis, it interleaves the
+two copies of the songs (assuming it doesn't ignore the Ogg Vorbis entirely).
 
 So the solution was: get a small, cheapest possible computer, put Linux on it,
 install Apache and mplayer on it, and connect it to normal external speakers.
@@ -71,7 +75,7 @@ Theoretically, there are cheap (about $100) media players that are DLNA players.
 But when I tried this, the interfaces ranged from unintuitive to unworkable.
 I think that most equipment manufacturers aren't really thinking about 
 controllers and players on two different pieces of hardware, and don't
-test these scenarios well.
+test these use cases well.
 
 Other things to note
 --------------------
@@ -83,5 +87,5 @@ projects rather than reinventing the wheel.
 
 Currently it uses the CGI interface to Apache; it would make sense to
 switch to a more modern web framework, especially one that lets the
-server maintain state.
+server maintain state.  (Why CGI?  It's quick and easy.)
 

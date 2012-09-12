@@ -28,6 +28,7 @@ def case_insensitive_sort_ignoring_stopwords(a, b):
             lca = lca[len(word):]
             break # not sure this makes sense -- stop at first stopword
                   # so, "The The A Dog" is thought of as properly "The A Dog"
+    for word in STOPWORDS:
         if lcb.startswith(word):
             lcb = lcb[len(word):]
             break
