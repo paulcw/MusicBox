@@ -2,6 +2,7 @@ MusicBox
 ========
 
 A web interface around mplayer to play music in a way I prefer.
+Or really, a prototype thereof.
 
 What it's for
 -------------
@@ -54,9 +55,14 @@ Is it completely finished and ready to go?
 
 Oh, God no.  It runs for me but it makes lots of assumptions about
 the environment.  Also the UI is ugly.
+It's basically a proof of concept.
 
 Other things that might serve the same purpose
 ----------------------------------------------
+
+VLC has a web interface that does a lot of this.  It's probably a better solution.
+It doesn't have an interface that I like, but it's extensible; I probably ought to have 
+implemented this as extensions to VLC.  That's probably what the next pass of this project will be.
 
 The Google Nexus Q (that sphere) looks like it might do exactly this, including the hardware.
 This is such an obvious use case that I'm surprised that no electronics
