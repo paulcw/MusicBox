@@ -1,3 +1,14 @@
+
+it's probably worth seeing if the whole thing could be done
+with a small about of Lua code on VLC.
+Or just replace the whole thing with XBMC?
+---------------------------
+add a loop option.  the mplayer slave command seems to be:
+
+loop <value> [abs]
+    Adjust/set how many times the movie should be looped. -1 means no loop,
+    and 0 forever.
+-----------------------
 make the client side code (operate.js) report error messages.
 server side components return errors with json obj with a key "error"
 and the val being the message.
