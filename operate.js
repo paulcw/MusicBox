@@ -197,10 +197,12 @@ function showListing(path) {
         // attach functions
 
         $('#directories #subdirs .subdir').click(function (evt) {
-            showListing($(this).attr('dir'));
+            //showListing($(this).attr('dir')); // this stopped working mysteriously, even though the equivalent for file elements still works just fine.
+            showListing(evt.target.getAttribute('dir'));
         });
         $('#directories #up').click(function (evt) {
-            showListing($(this).attr('dir'));
+            //showListing($(this).attr('dir')); // see above
+            showListing(evt.target.getAttribute('dir'));
         });
         // TODO i could probably make that one above by being smarter with classes
 
