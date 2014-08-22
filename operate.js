@@ -16,7 +16,7 @@ var lastTickCheck = 0; // time of last tick check
 var tickups = 0;
 
 function debug(x) {
-    return;
+    return; // NOTE HACKY WAY TO END EARLY
     //alert(x);
     $('#debuglog').append('<hr/>');
     $('#debuglog').append(x);
@@ -139,16 +139,16 @@ function showListing(path) {
         if (data['directory']) {
             var idx = data['directory'].lastIndexOf('/');
             var parentDir = data['directory'].substr(0, idx);
-            $('#up').text('UP').attr('dir', encodeURI(parentDir));
-        } else {
-            $('#up').text('').attr('dir', '');
+            $('#up').text('UP').attr('directory', encodeURI(parentDir));
+//        } else {
+//            $('#up').text('').attr('directory', '');
         }
 
         // subdirs
         if (data['subdirs'].length > 0) {
             $('#subdirs').text('');
             for(var i = 0; i < data['subdirs'].length; i++) {
-                $('#subdirs').append('<div class="button subdir" dir="' + encodeURI(data['directory'] + '/' + data['subdirs'][i]) + '">' + data['subdirs'][i] + '</div>');
+                $('#subdirs').append('<div class="button subdir" directory="' + encodeURI(data['directory'] + '/' + data['subdirs'][i]) + '">' + data['subdirs'][i] + '</div>');
             }
         } else if (data['cover']) {
             $('#subdirs').html('<img id="coverart" src="/cover.cgi?dir=' + path + '" />');
@@ -169,15 +169,24 @@ function showListing(path) {
                 for (var i = 0; i < data['types'].length; i++) {
                     var the_type = data['types'][i];
                     $('#files #showtypes').append('<div id="' + the_type + '" class="button">Show only ' + the_type + '</div>');
-                    $('#files #showtypes #' + the_type).click(make_fader_in(the_type));
-                    $('#files .dirsongs').append('<span class="playall button" dir="' + encodeURI('/' + the_type + data['directory']) + '">Play all ' + the_type + '</span>'); 
-                    $('#files .dirsongs').append('<span class="queueall button" dir="' + encodeURI('/' + the_type + data['directory']) + '">Queue all ' + the_type + '</span>'); 
+                    $('#files #showtypes #' + the_type).click((function (the_type) {
+                        return function(evt) {
+                            $('#files .song').fadeOut();
+                            $('#files .' + the_type).fadeIn();
+                        };})());
+                        // above nastiness is because local variables in
+                        // javascript are local to whole functions, not blocks,
+                        // so if we just used a simple closure, the the_type
+                        // reference would be to a single value.  We need
+                        // an additional anon function to bind the value to
+                    $('#files .dirsongs').append('<span class="playall button" directory="' + encodeURI('/' + the_type + data['directory']) + '">Play all ' + the_type + '</span>'); 
+                    $('#files .dirsongs').append('<span class="queueall button" directory="' + encodeURI('/' + the_type + data['directory']) + '">Queue all ' + the_type + '</span>'); 
 //                    $('#files .dirsongs').append('<div class="clear"></div>');
                     $('#files .dirsongs').append('<br/><br/>');
                 }
             } else {
-                $('#files .dirsongs').append('<span class="playall button" dir="' + encodeURI('/' + data['types'][0] + data['directory']) + '">Play all</span>'); 
-                $('#files .dirsongs').append('<span class="queueall button" dir="' + encodeURI('/' + data['types'][0] + data['directory']) + '">Queue all</span>'); 
+                $('#files .dirsongs').append('<span class="playall button" directory="' + encodeURI('/' + data['types'][0] + data['directory']) + '">Play all</span>'); 
+                $('#files .dirsongs').append('<span class="queueall button" directory="' + encodeURI('/' + data['types'][0] + data['directory']) + '">Queue all</span>'); 
             }
 
             for(var i = 0; i < data['files'].length; i++) {
@@ -197,30 +206,29 @@ function showListing(path) {
         // attach functions
 
         $('#directories #subdirs .subdir').click(function (evt) {
-            //showListing($(this).attr('dir')); // this stopped working mysteriously, even though the equivalent for file elements still works just fine.
-            showListing(evt.target.getAttribute('dir'));
+            showListing($(this).attr('directory'));
         });
         $('#directories #up').click(function (evt) {
-            //showListing($(this).attr('dir')); // see above
-            showListing(evt.target.getAttribute('dir'));
+            showListing($(this).attr('directory'));
         });
-        // TODO i could probably make that one above by being smarter with classes
 
         $('#files .playall').click(function (evt) {
-            $.post("/control.cgi", {
+// for debugging, i can probably delete this:
+/*            $.post("/control.cgi", {
                        'do': 'playdir',
-                       'dir': decodeURI($(this).attr('dir'))
+                       'dir': decodeURI($(this).attr('directory'))
                    }, function(data) {
                 //debug('msg:' + data['msg'] + ';error:' + data['error'] + ';stopped:' + data['stopped'] + ';skipped:' + data['skipped'] + ';queue:' + data['queue']);
                    }
             );
-            //$.post("/control.cgi?do=playdir&dir=" + $(this).attr('dir'));
+*/
+            $.post("/control.cgi?do=playdir&dir=" + $(this).attr('directory'));
             lastFullCheck = null;
             setTimeout(updateNowPlaying, 1000);
             playing = true;
         });
         $('#files .queueall').click(function (evt) {
-            $.post("/control.cgi?do=queuedir&dir=" + $(this).attr('dir'));
+            $.post("/control.cgi?do=queuedir&dir=" + $(this).attr('directory'));
             if (!playing)
                 setTimeout(updateNowPlaying, 1000);
         });
@@ -281,17 +289,4 @@ $(document).ready(function () {
     showListing('');
 });
 
-/**
- * to allow us to write music type fade in/out functions
- * the tricky part is that javascript seems to have one giant
- * environment, and "var" does NOT define something within
- * a smaller, limited scope.  So closures don't really act
- * like closures sometimes.
- */
-function make_fader_in(the_type) {
-    return function(evt) {
-        $('#files .song').fadeOut();
-        $('#files .' + the_type).fadeIn();
-    };
-}
 
