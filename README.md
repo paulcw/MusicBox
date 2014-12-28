@@ -9,7 +9,9 @@ Hold it!
 
 In retrospect, this project was unnecessary.  Other, probably nicer solutions exist.
 
-tl;dr: Get VLC and a VLC remote controller app, or XMBC and an XMBC remote controller app.
+tl;dr: Get VLC and a VLC remote controller app, or XMBC and an XMBC remote controller app.  (XMBC is in the process of being renamed Kodi, apparently.)
+
+More disclaimer: This project is a prototype.  This means that it does some things unnecessarily (for example, it rolls its own single page app code, when there are existing libraries that would make more sense).  Also, it doesn't have any tests, which would be the first next step should it ever be supported for real.  It uses CGI scripts which is ancient.  It really only exists to try things out and see how amusingly they succeed or fail.  I bring this up because lately I've been pointing recruiters/employers to this when they want to see a project in GitHub; but please note that I'm aware that it's in many ways hacky.
 
 Read on if you want to know more about the context/background of this.
 

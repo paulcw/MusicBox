@@ -2,25 +2,37 @@
 it's probably worth seeing if the whole thing could be done
 with a small about of Lua code on VLC.
 Or just replace the whole thing with XBMC?
+
 ---------------------------
+
 add a loop option.  the mplayer slave command seems to be:
 
 loop <value> [abs]
     Adjust/set how many times the movie should be looped. -1 means no loop,
     and 0 forever.
+
 -----------------------
+
 make the client side code (operate.js) report error messages.
 server side components return errors with json obj with a key "error"
 and the val being the message.
+
 -----
+
 break operate.js into different files based on area of functionaliy
+
 -----
+
 it might make sense to use something like meteor to build this, or parts of it
+
 ------
+
 use the python mplayer wrapper?
 http://code.google.com/p/python-mplayer/wiki/Player
 hopefully, this will significantly reduce code surface
+
 ---
+
 it looks like mp3s generated via itunes ripping don't have
 ID3 tags that either mplayer understands.  WTF?  They do show up
 as "annotations" in Quicktime, dunno if that's just how QT expresses
@@ -29,22 +41,32 @@ in its ongoing efforts to become Microsoft circa 1995.
 Might need to find a better CD ripper than iTunes...
 on the other hand, maybe mplayer just sucks. (maybe itunes does id3v2, and
 mplayer can only read v1?)  Life is mysterious.
+
 ---
+
 port to some other python/web framework, as lightweight as possible,
-that preserves state.  Too many other todo items want that.
+that preserves state.  Too many other todo items need state, e.g.,
+so the playlist can be viewed across multiple users.
 mod_python looked interesting, but is apparently old.
 It would be nice if CGI wrappers could remain workable, for backwards
-compatibility.
+compatibility. (ah but so what; it's ancient)
+
 ---
+
 make it store state on server (and not all on client)
+
 ---
+
 make it play radio URLs
+
 ---
-give it an auto-off or "sleep" type option (so you can kill the fucking radio)
+
+give it an auto-off or "sleep" type option (so you can kill the radio)
+
 ---
+
 bring the playlist to server side (and not managed by mplayer) so you can
 see it and control it.
-
 
 ------------------
 
@@ -60,12 +82,13 @@ the song state at the time it was minimized.
 ------------------
 
 Use a cookie or the like so that when iOS insists on reloading the whole
-fucking page, go back to the same listing directory.
+page, go back to the same listing directory.
 
 ------------------
 
-use a html5 <audio> or whatever the fuck it is tag, so you can
+use a html5 <audio> or whatever it is tag, so you can
 play the whole song (or a sample) via the controller
+(is this really useful?)
 
 ------------------
 
@@ -122,7 +145,7 @@ during start and stop
 When going "up", make it scroll to the directory you were just in.
 Note that there are jquery .scroll method(s), and CSS has a thing,
 I think "overflow: auto" or the like, that causes divs that are too
-big to become scrollers (although the scrollbar might look like shit but
+big to become scrollers (although the scrollbar might look like crap but
 worry about that later).
 
 --------------------------------------
@@ -191,13 +214,12 @@ make the JS create a URL to the NAS server?
 ------------------
 
 Make it deal with podcasts.  Maybe configure lister to have a list
-of "known" subdirectories off of /nas/media.
-The easy way to do this is just move "Podcasts" under "Music".
+of "known" subdirectories off of the media filesystem root.
 
-Or do some combination, perhaps creating "Audio" and moving both podcasts
-and music under it, and adjusting scripts to match.
+Or do some file hierarchy futzing, perhaps creating "Audio" and moving
+both podcasts and music under it, and adjusting scripts to match.
 
-... although it's possible that DLNA or some such shit requires a
+... although it's possible that DLNA or some such requires a
 naming convention where "Music" is on top.  It occurs to me now that
 the PS3 will only present content in the right place if a disk follows
 that convention.  It seems to be the same between NAS and PS3.
